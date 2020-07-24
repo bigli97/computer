@@ -18,4 +18,4 @@ jdk 1.8
 注：如果没有lombok插件，去computer.util.result删除@Data注解，然后手动生成get，set方法  
 
 ##### 运行结果  
-![image-20200724171003475](C:\Users\93593\AppData\Roaming\Typora\typora-user-images\image-20200724171003475.png)
+![计算机指标](https://raw.githubusercontent.com/bigli97/computer/master/src/main/resources/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8C%87%E6%A0%87.gif)
