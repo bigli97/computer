@@ -20,6 +20,19 @@
           <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         
+        <!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>  
+		
         <!-- 热部署，修改完不用重启项目，非必需 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -54,6 +67,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        
+        <!-- redis -->
+        <dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
     </dependencies>
   		
 </project>

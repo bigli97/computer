@@ -1,17 +1,14 @@
 package computer.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jcraft.jsch.JSchException;
 
+import computer.service.ComputerIndexService;
 import computer.util.Result;
-import computer.util.ShowUtil;
 /**
  * 
  * @author dali
@@ -22,6 +19,9 @@ import computer.util.ShowUtil;
 @Controller
 public class ViewController {
 	
+	@Resource
+	private ComputerIndexService service;
+	
 	//访问可视化页面
 	@RequestMapping("/show")
 	public String listData3(){
@@ -29,16 +29,12 @@ public class ViewController {
 	}	
     
     //用来返回计算机性能指标信息
-    @RequestMapping("/showData")
+    @RequestMapping("/get")
     @ResponseBody
-    public Object showData() throws JSchException, IOException{
-    	List<Double> lists = new ArrayList<>();
-    	lists.add(ShowUtil.getCPUData());
-    	lists.add(ShowUtil.getMemoryData());
-    	lists.add(ShowUtil.getNetworkData());
-    	return Result.success(lists);
+    public Result get() throws Exception {
+    	service.create();
+    	return Result.success(service.getComputerIndex());
     }
-    
 }
 
 

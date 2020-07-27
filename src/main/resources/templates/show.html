@@ -261,15 +261,15 @@
 //		    option.series[2].data[0].value = (Math.random()*200+200).toFixed(0);
 		    
 		    $.ajax({
-				url: "showData",
+				url: "get",
 				dataType:"json",
 				success: function(data){
-				option.series[0].data[0].value = data.data[1];
-		    	option.series[1].data[0].value = data.data[0];
-		    	option.series[2].data[0].value = data.data[2];
+				option.series[0].data[0].value = data.data.memoryUsage;
+		    	option.series[1].data[0].value = data.data.cpuUsage;
+		    	option.series[2].data[0].value = data.data.networkSpeed;
 				},
 				error: function (e) {
-					alert("ajax错误码:"+e.status);
+					console.log("ajax错误码:"+e.status);
 				}
 			});
 		    
