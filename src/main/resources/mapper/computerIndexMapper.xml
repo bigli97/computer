@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper   
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="computer.dao.ComputerIndexDao">
+
+    <!--   主要是在主键是自增的情况下，添加成功后可以直接使用主键值，其中keyProperty的值是对象的属性值不是数据库表中的字段名-->
+    <insert id="create" parameterType="ComputerIndex" useGeneratedKeys="true" keyProperty="id">
+        insert into computer_index(cpu_usage,memory_usage,network_speed,create_time) values (#{cpuUsage},#{memoryUsage},#{networkSpeed},now());
+    </insert>
+
+    <resultMap id="BaseResultMap" type="computer.entity.ComputerIndex">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <id column="cpu_usage" property="cpuUsage" jdbcType="DOUBLE"/>
+        <id column="memory_usage" property="memoryUsage" jdbcType="DOUBLE"/>
+        <id column="network_speed" property="networkSpeed" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <select id="getComputerIndex" resultMap="BaseResultMap">
+        SELECT * FROM computer_index ORDER BY id desc limit 1;
+    </select>
+    
+    <delete id="deleteComputerIndex">
+        DELETE FROM computer_index ORDER BY id LIMIT 500;
+    </delete>
+    
+    <select id="getCount" resultType="int">
+        SELECT count(*) FROM computer_index;
+    </select>
+</mapper>
