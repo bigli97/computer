@@ -21,7 +21,7 @@ import com.jcraft.jsch.Session;
 public class ShowUtil {
 	
 	//用户需自动配置LinuxIP地址，用户名密码
-	private static final String host = "192.168.11.130";
+	public static final String host = "192.168.11.130";
 	private static final String user = "root";
 	private static final String password = "root";
 	//默认数值，不需要改动

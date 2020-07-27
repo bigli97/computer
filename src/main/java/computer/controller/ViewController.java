@@ -22,7 +22,7 @@ public class ViewController {
 	@Resource
 	private ComputerIndexService service;
 	
-	//访问可视化页面
+	//用来返回页面
 	@RequestMapping("/show")
 	public String listData3(){
 	    return "show";
