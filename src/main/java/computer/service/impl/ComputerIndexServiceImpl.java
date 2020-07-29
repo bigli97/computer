@@ -23,53 +23,50 @@ public class ComputerIndexServiceImpl implements ComputerIndexService{
 	@Resource
 	private ComputerIndexDao dao;
 	
-	@Resource
-	private RedisUtil redisUtil;
-	
-	@Resource
-	private RedisUtil.redisString redisString;
-	
 	//如果redis服务启动数据从redis中读写，否则从数据库中读写，true表示服务启动
 	boolean flag = PortUtil.isPort(ShowUtil.host,6379);
-	
-	//redis数据唯一标识
-	long UUID = 0;
 	
 	//表中数据的数量
 	private int count = 0;
 	
-	//将对象存入数据库，如果redis服务开启则存一份进入redis
 	@Override
-	public void create() throws JSchException, IOException {
-		count = dao.getCount();
-		if(count >= 1000) {
-    		dao.deleteComputerIndex();//删除前500条记录
-    	}
+	public void create() throws JSchException, IOException {	
 		ComputerIndex computerIndex = new ComputerIndex();
 		computerIndex.setCpuUsage(ShowUtil.getCPUData());
 		computerIndex.setMemoryUsage(ShowUtil.getMemoryData());
 		computerIndex.setNetworkSpeed(ShowUtil.getNetworkData());
-		dao.create(computerIndex);
 		if(flag) {
-			UUID = computerIndex.getId();
-			redisString.set("computerMsg"+UUID,computerIndex);
-			log.info("存入redis成功");
+//			log.info("正在写入数据到redis.....");
+			RedisUtil.set("computerMsg",computerIndex);
+//			log.info("写入redis成功");
+		} else {
+			log.info("检测到没有启动redis，将数据写入数据库");
+			//如果数据库超1000条记录，那么删除前500条
+			count = dao.getCount();
+			if(count >= 1000) {
+	    		dao.deleteComputerIndex();
+	    		log.info("已帮助您清理掉冗余数据");
+	    	}
+			dao.create(computerIndex);
 		}
 	}
 
 	@Override
 	public Object getComputerIndex() {
 		if(flag) {
-			if(redisUtil.hasKey("computerMsg"+UUID)) {
-				Object result = redisString.get("computerMsg"+UUID);
-				log.info("获取数据成功");
+			if(RedisUtil.hasKey("computerMsg")) {
+				Object result = RedisUtil.get("computerMsg");
+//				log.info("从redis获取数据成功");
 				return result;
 			} else {
-				log.error("redis没有获得最新数据，请检查redis插入数据部分");
+//				log.error("redis没有获取数据，返回null，请检查代码");
 				return null;
 			}
+		} else {
+			log.info("检测到没有启动redis，从数据库中获取数据");
+			return dao.getComputerIndex();
 		}
-		return dao.getComputerIndex();
+		
 	}
 
 	@Override

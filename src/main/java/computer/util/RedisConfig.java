@@ -15,7 +15,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 
  * @author dali
  * @date 2020-7-27
- * @Description 当添加Redis依赖后，SpringBoot会自动帮我们在容器中生成一个RedisTemplate和一个StringRedisTemplate
+ * @Description redis配置类
+ * 				当添加Redis依赖后，SpringBoot会自动帮我们在容器中生成一个RedisTemplate和一个StringRedisTemplate
  * 				但是，这个RedisTemplate的泛型是<Object,Object>，在代码中会不可避免的需要类型转换，这样不够安全，也过于麻烦
  * 				而且RedisTemplate没有设置序列化方式，所以，需要配置Redis
  * 				一句话：防止乱码

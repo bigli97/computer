@@ -33,13 +33,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>  
 		
-        <!-- 热部署，修改完不用重启项目，非必需 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
-		
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 		    <groupId>junit</groupId>

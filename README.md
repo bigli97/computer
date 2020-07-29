@@ -1,7 +1,7 @@
 ##### 项目简介
 
-计算机性能指标展现  
-利用springboot+echarts+mybatis+redis获取Linux中的内存使用率，CPU利用率以及实时网速
+Linux性能指标展现  
+利用springboot+echarts+jq+mybatis+redis获取Linux中的内存使用率，CPU利用率、以及实时网速以及HDFS中的一些信息
 
 ##### 技术需要
 
