@@ -1,8 +1,17 @@
-setTimeout( function(){
 // 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('slave'));
+var myChart1 = echarts.init(document.getElementById('hdfs'));
 option1 = {
     backgroundColor: '#483D8B',
+    toolbox: {
+	    show: true,
+	    borderColor: '#FFF',
+	    feature: {
+	      dataView: {
+	        readOnly: true
+	      },
+	      restore: {},
+	    }
+	},
     title: {
 			text: '大数据指标可视化',
 			textStyle:{
@@ -17,11 +26,11 @@ option1 = {
     legend: {
         orient: 'vertical',
         left: 10,
-        data: ['配置容量', '现有容量', '剩余DFS', '已使用的DFS', '非DFS', 'DFS剩余']
+        data: ['配置容量', '非DFS使用量',  '剩余DFS']
     },
     series: [
         {
-            name: '访问来源',
+            name: 'live DN',
             type: 'pie',
             selectedMode: 'single',
             radius: [0, '30%'],
@@ -33,9 +42,9 @@ option1 = {
                 show: false
             },
             data: [
-                {value: 335, name: '配置容量', selected: true},
-                {value: 679, name: '现有容量'},
-                {value: 1548, name: '剩余DFS'}
+                {value: 12.07, name: 'presentCapacity', selected: true},
+                {value: 17.4, name: 'Configured Capacity'},
+                {value: 12.33, name: 'DFS Remaining'}
             ]
         },
         {
@@ -48,24 +57,12 @@ option1 = {
                 borderColor: '#aaa',
                 borderWidth: 1,
                 borderRadius: 4,
-                // shadowBlur:3,
-                // shadowOffsetX: 2,
-                // shadowOffsetY: 2,
-                // shadowColor: '#999',
-                // padding: [0, 7],
                 rich: {
                     a: {
                         color: '#999',
                         lineHeight: 22,
                         align: 'center'
                     },
-                    // abg: {
-                    //     backgroundColor: '#333',
-                    //     width: '100%',
-                    //     align: 'right',
-                    //     height: 22,
-                    //     borderRadius: [4, 4, 0, 0]
-                    // },
                     hr: {
                         borderColor: '#aaa',
                         width: '100%',
@@ -86,16 +83,27 @@ option1 = {
             },
             data: [
                 {value: 17.4, name: '配置容量'},
-                {value: 12, name: '现有容量'},
-                {value: 12, name: '剩余DFS'},
-                {value: 1, name: '已使用的DFS'},
-                {value: 5, name: '非DFS'},
-                {value: 14, name: 'DFS剩余'},
+                {value: 5.2, name: '非DFS使用量'},
+                {value: 12.33, name: '剩余DFS'},
             ]
         }
     ]
 };
-myChart.setOption(option1);
-$('#loading').css("background-color","#483D8B");
- },2000 );
+$.ajax({
+		url: "getHDFSIndex",
+		dataType:"json",
+		success: function(data){
+		option1.series[0].data[0].value = data.data.presentCapacity;
+		option1.series[0].data[1].value = data.data.configuredCapacity;
+		option1.series[0].data[2].value = data.data.dfsRemaining;
+		option1.series[1].data[0].value = data.data.configuredCapacity;
+		option1.series[1].data[1].value = data.data.nonDfsUsed;
+		option1.series[1].data[2].value = data.data.dfsRemaining;
+		myChart1.setOption(option1);
+		$('#loading').css("background-color","#483D8B");
+		},
+		error: function (e) {
+			console.log("ajax错误码:"+e.status);
+		}
+	});
 

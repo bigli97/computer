@@ -36,9 +36,7 @@ public class ComputerIndexServiceImpl implements ComputerIndexService{
 		computerIndex.setMemoryUsage(ShowUtil.getMemoryData());
 		computerIndex.setNetworkSpeed(ShowUtil.getNetworkData());
 		if(flag) {
-//			log.info("正在写入数据到redis.....");
 			RedisUtil.set("computerMsg",computerIndex);
-//			log.info("写入redis成功");
 		} else {
 			log.info("检测到没有启动redis，将数据写入数据库");
 			//如果数据库超1000条记录，那么删除前500条
@@ -56,17 +54,15 @@ public class ComputerIndexServiceImpl implements ComputerIndexService{
 		if(flag) {
 			if(RedisUtil.hasKey("computerMsg")) {
 				Object result = RedisUtil.get("computerMsg");
-//				log.info("从redis获取数据成功");
 				return result;
 			} else {
-//				log.error("redis没有获取数据，返回null，请检查代码");
+				log.error("从redis获取数据失败，请检查代码");
 				return null;
 			}
 		} else {
 			log.info("检测到没有启动redis，从数据库中获取数据");
 			return dao.getComputerIndex();
 		}
-		
 	}
 
 	@Override

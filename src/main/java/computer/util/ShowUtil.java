@@ -2,6 +2,8 @@ package computer.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
@@ -53,14 +55,15 @@ public class ShowUtil {
 		command = "cat /proc/meminfo | grep -E -w 'MemTotal|MemFree'";
 		result = exeCommand(host,port,user,password,command);
 		//总内存量
-		String MemTotal = result.substring(18, 24);
+		String MemTotal = result.substring(result.indexOf(":")+1, result.indexOf("kB")-1);
+		//一行有多少
+		int line = result.indexOf("\n");
 		//空闲内存量
-		String MemFree = result.substring(46, 52);
+		String MemFree = result.substring(result.indexOf(":",line)+1, result.indexOf("kB",line)-1);
 		//内存使用率=(总内存量-空闲内存量)/总内存量
 		double Memusage = ((Double.parseDouble(MemTotal)-Double.parseDouble(MemFree))/Double.parseDouble(MemTotal))*100;
 		//保留一位小数
-		Memusage = Double.parseDouble(String.format("%.1f", Memusage));
-		return Memusage;
+		return Double.parseDouble(String.format("%.1f", Memusage));
 	}
 	
 	//计算CPU利用率
@@ -68,22 +71,42 @@ public class ShowUtil {
 		command = "top -b -n 1 | head -3 | grep id";
 		result = exeCommand(host,port,user,password,command);
 		//空闲CPU百分比
-		String CpuFreeusage = result.substring(36, 40);
+		String CpuFreeusage = result.substring(result.indexOf("ni")+3, result.indexOf("id")-1);
 		//内存使用率=100-空闲
 		double Cpuusage = 100-Double.parseDouble(CpuFreeusage);
 		//保留一位小数
-		Cpuusage = Double.parseDouble(String.format("%.1f", Cpuusage));
-		return Cpuusage;
+		return Double.parseDouble(String.format("%.1f", Cpuusage));
 	}
 	
 	//计算实时网速
 	public static double getNetworkData() throws JSchException, IOException {
 		command = "./Nspeed.sh ens33";
 		result = exeCommand(host,port,user,password,command);
-		double NetworkSpeed = Double.parseDouble(String.format("%.2f", Double.parseDouble(result)));
-		return NetworkSpeed;
+		return Double.parseDouble(String.format("%.2f", Double.parseDouble(result)));
 	}
 	
+	//计算配置容量,现有容量,剩余DFS,非DFS
+	public static Map<String, String> getHDFSIndex() throws JSchException, IOException {
+		command = "hdfs dfsadmin -report";
+		result = exeCommand(host,port,user,password,command);
+		Map<String, String> resultMaps = new HashMap<>();
+		int line = result.indexOf("\n");
+		String ConfiguredCapacity = result.substring(result.indexOf("(")+1,result.indexOf("GB")-1);
+		String PresentCapacity = result.substring(result.indexOf("(",line)+1,result.indexOf("GB",line)-1);
+		String DFSRemaining = result.substring(result.indexOf("(",line*2)+1,result.indexOf("GB",line*2)-1);
+		String NonDfsUsed = result.substring(result.indexOf("(",line*12)+1,result.indexOf("GB",line*12)-1);
+		resultMaps.put("ConfiguredCapacity", ConfiguredCapacity);
+		resultMaps.put("PresentCapacity", PresentCapacity);
+		resultMaps.put("DFSRemaining", DFSRemaining);
+		resultMaps.put("NonDfsUsed", NonDfsUsed);
+		return resultMaps;
+	}
+		
+	//测试命令
+	public static Object test() throws JSchException, IOException {
+		command = "curl http://localhost:50070";
+		return exeCommand(host,port,user,password,command);
+	}
 }
 
 

@@ -1,3 +1,4 @@
+setTimeout(function(){
 // 基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('main'));
 option = {
@@ -243,7 +244,7 @@ option = {
 
 setInterval(function (){
     $.ajax({
-		url: "get",
+		url: "getComputerIndex",
 		dataType:"json",
 		success: function(data){
 		option.series[0].data[0].value = data.data.memoryUsage;
@@ -254,6 +255,6 @@ setInterval(function (){
 			console.log("ajax错误码:"+e.status);
 		}
 	});
-    
     myChart.setOption(option);
 },2000);
+},1600);

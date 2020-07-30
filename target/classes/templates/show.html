@@ -17,27 +17,28 @@
 				<div class="loadingIcon">
 					<span></span>
 				</div>
-				<p>页面渲染中......</p>
+				<p id="p1">页面渲染中......</p>
 			</div>
 		</div>
 	</div>
 	
-	<!-- loading.js -->
-	<script src="js/loading.js"></script>
-	
 	<!-- 创建hdfs指标的Dom -->
-    <div id="slave" style="width: 750px;height:600px;float:left;display:inline"/>
+    <div id="hdfs" style="width: 750px;height:600px;float:left;"/>
     
 	<!-- 创建计算机指标的Dom -->
-    <div id="main" style="width: 750px;height:600px;float:left;display:inline"/>
+    <div id="main" style="width: 750px;height:600px;float:left;"/>
     
     <!-- 填充块 -->
-    <div id="loading" style="width: 1500px;float:left;display:inline;height:100px;"/>
+    <div id="loading" style="width: 1500px;height:100px;float:left;"/>
+    
+    <!-- loading.js -->
+	<script src="js/loading.js"></script>
     
     <!-- 大数据指标.js -->
     <script src="js/hdfs.js"></script>
     
     <!-- 计算机指标.js -->
     <script src="js/index.js"></script>
+	
 </body>
 </html>

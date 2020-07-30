@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper   
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="computer.dao.HDFSIndexDao">
+
+    <!--   主要是在主键是自增的情况下，添加成功后可以直接使用主键值，其中keyProperty的值是对象的属性值不是数据库表中的字段名-->
+    <insert id="create" parameterType="HDFSIndex" useGeneratedKeys="true" keyProperty="id">
+        insert into hdfs_index(configured_capacity,present_capacity,dfs_remaining,non_dfs_used,create_time) values (#{configuredCapacity},#{presentCapacity},#{dfsRemaining},#{nonDfsUsed},now());
+    </insert>
+
+    <resultMap id="BaseResultMap" type="computer.entity.HDFSIndex">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <id column="configured_capacity" property="configuredCapacity" jdbcType="DOUBLE"/>
+        <id column="present_capacity" property="presentCapacity" jdbcType="DOUBLE"/>
+        <id column="dfs_remaining" property="dfsRemaining" jdbcType="DOUBLE"/>
+        <id column="non_dfs_used" property="nonDfsUsed" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <select id="getHDFSIndex" resultMap="BaseResultMap">
+        SELECT * FROM hdfs_index ORDER BY id desc limit 1;
+    </select>
+
+</mapper>
