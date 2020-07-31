@@ -1,14 +1,10 @@
 ##### 项目简介
 
-Linux性能指标展现  
-利用springboot+echarts+jq+mybatis+redis获取Linux中的内存使用率，CPU利用率、以及实时网速以及HDFS中的一些信息
+计算Linux虚拟机指标包括内存使用率，cpu使用率，实时网速。获取hdfs的健康信息，包括配置容量，现有容量，DFS余量，非DFS使用量。并进行可视化展示
 
 ##### 技术需要
 
-CentOS 7  
-jdk 1.8  
-mysql 5.7  
-redis（可无）
+【必用】spring boot + Echarts + thymeleaf + jdk8以上【选用】Redis+Vue+Bootstrap
 
 ##### 启动步骤
 
@@ -16,7 +12,7 @@ redis（可无）
 2、在虚拟机当前目录（/root）写入Nspeed.sh（实时网速获取脚本文件），该文件位于resource目录下  
 3、自定义computer.ShowUtil中的虚拟机配置  
 4、将根目录下的computer_index.sql导入数据库   
-5、启动Linux的HDFS服务
+5、启动Linux的HDFS服务  
 6、进入启动类Application进行启动  
 7、访问http://localhost:8080/show或者http://127.0.0.1:8080/show  
  

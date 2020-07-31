@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta content="" name="description" />
+    <meta content="webthemez" name="author" />
+    <title>数据展现页面</title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+    <link href='assets/css/fonts.css' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css"/> 
+</head>
+
+<body>
+	<!-- ********************************计算机数据展现***************************************** -->
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="list"><strong><i class="icon fa fa-leaf"></i> INDEXLIST</strong></a>
+			<div id="sideNav" href="">
+			<i class="fa fa-bars icon"></i> 
+			</div>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown-user -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="home"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                    </ul>
+                </li>
+        	</ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li id="k1">
+                        <a class="active-menu" href="#" id="k3"><i class="fa fa-desktop"></i>计算机数据展现</a>
+                    </li>
+                    <li>
+                        <a href="#" id="k2"><i class="fa fa-umbrella"></i>HDFS数据展现</a>
+                    </li> 
+                    <li>
+                        <a href="show"><i class="fa fa-dashboard"></i>数据可视化展现</a>
+                    </li> 
+                </ul>
+            </div>
+        </nav>
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+			<div class="header"> 
+                <h1 class="page-header">数据展现<small>Welcome admin</small></h1>
+			</div>
+			<div id="page-inner">
+            <div id="page-inner1">
+                <!-- /. ROW  -->
+                <div class="row" id="w1">
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="board">
+	                        <div class="panel panel-primary">
+								<div class="number">
+									<h3>
+										<h3 v-if="beans.length>0">{{beans[0].cpuUsage}}%</h3>
+										<small>cpu使用率</small>
+									</h3> 
+								</div>
+								<div class="icon">
+								   <i class="fa fa-asterisk fa-5x red"></i>
+								</div>
+	                    	</div>
+						</div>
+                	</div>
+					
+					<div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="board">
+	                        <div class="panel panel-primary">
+								<div class="number">
+									<h3>
+										<h3 v-if="beans.length>0">{{beans[0].memoryUsage}}%</h3>
+										<small>内存使用率</small>
+									</h3> 
+								</div>
+								<div class="icon">
+								   <i class="fa fa-dot-circle-o fa-5x blue"></i>
+								</div>
+	                        </div>
+						</div>
+                    </div>
+					
+					<div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="board">
+	                        <div class="panel panel-primary">
+								<div class="number">
+									<h3>
+										<h3 v-if="beans.length>0">{{beans[0].networkSpeed}}kb/s</h3>
+										<small>实时网速</small>
+									</h3> 
+								</div>
+								<div class="icon">
+								   <i class="fa fa-bolt fa-5x green"></i>
+								</div>
+	                        </div>
+						</div>
+                    </div>
+					
+					<div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="board">
+	                        <div class="panel panel-primary">
+								<div class="number">
+									<h3>
+										<h3>admin</h3>
+										<small>administrator</small>
+									</h3> 
+								</div>
+								<div class="icon">
+								   <i class="fa fa-user fa-5x yellow"></i>
+								</div>
+	                        </div>
+						</div>
+                    </div>
+                </div>
+				     									
+                <div class="row" id="w2">
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">计算机数据展示</div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>cpuUsage(%)</th>
+                                                <th>memoryUsage(%)</th>
+                                                <th>networkSpeed(kb/s)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="bean in beans">
+	                                            <td>{{bean.id}}</td>
+	                                            <td>{{bean.cpuUsage}}</td>
+	                                            <td>{{bean.memoryUsage}}</td>
+	                                            <td>{{bean.networkSpeed}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /. ROW  -->
+            </div><!-- /. PAGE INNER  -->
+            
+            <!-- ********************************hdfs数据展现*****************************************  -->
+            
+            <div id="page-inner2">
+             <!-- /. ROW  -->
+                <div class="row" id="w3">
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="board">
+	                        <div class="panel panel-primary">
+								<div class="number">
+									<h3>
+										<h3 v-if="beans2.length>0">{{beans2[0].configuredCapacity}}GB</h3>
+										<small>配置容量</small>
+									</h3> 
+								</div>
+								<div class="icon">
+								   <i class="fa fa-asterisk fa-5x red"></i>
+								</div>
+	                    	</div>
+						</div>
+                	</div>
+					
+					<div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="board">
+	                        <div class="panel panel-primary">
+								<div class="number">
+									<h3>
+										<h3 v-if="beans2.length>0">{{beans2[0].presentCapacity}}GB</h3>
+										<small>现有容量</small>
+									</h3> 
+								</div>
+								<div class="icon">
+								   <i class="fa fa-dot-circle-o fa-5x blue"></i>
+								</div>
+	                        </div>
+						</div>
+                    </div>
+					
+					<div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="board">
+	                        <div class="panel panel-primary">
+								<div class="number">
+									<h3>
+										<h3 v-if="beans2.length>0">{{beans2[0].dfsRemaining}}GB</h3>
+										<small>剩余DFS</small>
+									</h3> 
+								</div>
+								<div class="icon">
+								   <i class="fa fa-bolt fa-5x green"></i>
+								</div>
+	                        </div>
+						</div>
+                    </div>
+					
+					<div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="board">
+	                        <div class="panel panel-primary">
+								<div class="number">
+									<h3>
+										<h3 v-if="beans2.length>0">{{beans2[0].nonDfsUsed}}GB</h3>
+										<small>非DFS使用量</small>
+									</h3> 
+								</div>
+								<div class="icon">
+								   <i class="fa fa-cloud fa-5x yellow"></i>
+								</div>
+	                        </div>
+						</div>
+                    </div>
+                </div>
+		    	<div class="row" id="w4">
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">hdfs数据展示</div>
+                            <div class="panel-body" id="k5">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>configuredCapacity(GB)</th>
+                                                <th>presentCapacity(GB)</th>
+                                                <th>dfsRemaining(GB)</th>
+                                                <th>nonDfsUsed(GB)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="bean in beans2">
+	                                            <td>{{bean.id}}</td>
+	                                            <td>{{bean.configuredCapacity}}</td>
+	                                            <td>{{bean.presentCapacity}}</td>
+	                                            <td>{{bean.dfsRemaining}}</td>
+	                                            <td>{{bean.nonDfsUsed}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /. ROW  -->
+        	</div><!-- page-inner2  -->        
+          </div>      
+        </div><!-- /. PAGE WRAPPER  -->
+    </div><!-- /. WRAPPER  -->
+    
+    
+    
+    
+    
+    <!-- ********************************JS Scripts***************************************** -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
+	<script src="assets/js/easypiechart.js"></script>
+	<script src="assets/js/easypiechart-data.js"></script>
+	<script src="assets/js/Lightweight-Chart/jquery.chart.js"></script>
+    <script src="assets/js/custom-scripts.js"></script>
+    <script src="assets/js/Chart.min.js"></script>  
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
+
+</body>
+
+</html>

@@ -1,5 +1,7 @@
 package computer.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import computer.entity.ComputerIndex;
@@ -9,4 +11,5 @@ public interface ComputerIndexDao {
 	ComputerIndex getComputerIndex();
 	void deleteComputerIndex();
 	int getCount();
+	List<ComputerIndex> getAll();
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="ldl">
+
+<head>
+	<title>Linux指标展现入口</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta charset="UTF-8" />
+	<meta name="keywords" content=""/>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.min.js"></script>
+	<script src="js/moment.js"></script> <!-- vue.js 格式化日期用的 -->
+	<link href="css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="css/style.css" rel="stylesheet"/>
+	<link href="css/style1.css" rel="stylesheet"/>
+	<link href="css/fontawesome-all.css" rel="stylesheet"/>
+	<script>
+		$(function(){
+			$("#loginErrorMessageDiv").hide();
+			$("#button").click(function () {
+				if($("#username").val().length==0){
+					$("#errorMessage").html("请输入用户名");
+					$("#loginErrorMessageDiv").show();
+					return;
+				}
+				if($("#password").val().length==0){
+					$("#errorMessage").html("密码不能为空");
+					$("#loginErrorMessageDiv").show();
+					return;
+				}
+				var param = $("#login").serialize();
+				$.ajax({
+					url: "checklogin",
+					data: param,
+					dataType: "json",
+					type: "post",
+					success: function(data){
+						if(data.code === 0){
+							location.href = "list";
+						} else {
+							$("#errorMessage").html(data.message);
+							$("#loginErrorMessageDiv").show();
+						}
+					},
+					error: function (e) {
+						alert("ajax错误码:"+e.status);
+					}
+				});
+			})
+		});
+	</script>
+</head>
+
+<body>
+	<div id="bg">
+		<canvas></canvas>
+		<canvas></canvas>
+		<canvas></canvas>
+	</div>
+
+	<!-- title -->
+	<h1>Linux指标数据展现</h1>
+
+	<!-- content -->
+	<div class="sub-main-w3">
+		<form id="login" action="#" method="post">
+			<div class="form-style-agile">
+				<div id="loginErrorMessageDiv">
+					<div class="alert alert-danger" >
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+						<span id="errorMessage"></span>
+					</div>
+				</div>
+				<label>
+					<i class="fas fa-user"></i>
+					<span>用户名</span>
+				</label>
+				<input id="username" placeholder="请输入用户名" name="username" type="text"/>
+			</div>
+			<div class="form-style-agile">
+				<label>
+					<i class="fas fa-unlock-alt"></i>
+					<span>密码</span>
+				</label>
+				<input id="password" placeholder="请输入密码" name="password" type="password"/>
+			</div>
+
+			<input id="button" type="button" value="登录"/>
+		</form>
+	</div>
+
+	<script src="js/canva_moving_effect.js"></script>
+
+
+</body>
+
+</html>

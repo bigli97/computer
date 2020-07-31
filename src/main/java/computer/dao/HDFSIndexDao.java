@@ -1,5 +1,7 @@
 package computer.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import computer.entity.HDFSIndex;
@@ -7,4 +9,5 @@ import computer.entity.HDFSIndex;
 public interface HDFSIndexDao {
 	void create(HDFSIndex hdfsIndex);
 	HDFSIndex getHDFSIndex();
+	List<HDFSIndex> getAll();
 }

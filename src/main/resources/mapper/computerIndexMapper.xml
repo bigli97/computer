@@ -28,4 +28,8 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     <select id="getCount" resultType="int">
         SELECT count(*) FROM computer_index;
     </select>
+    
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT * FROM computer_index ORDER BY id desc limit 6;
+    </select>
 </mapper>
