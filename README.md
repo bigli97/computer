@@ -14,14 +14,15 @@
 4、将根目录下的computer_index.sql导入数据库   
 5、启动Linux的HDFS服务  
 6、进入启动类Application进行启动  
-7、访问http://localhost:8080/show或者http://127.0.0.1:8080/show  
+7、访问http://localhost:8080/home或者http://127.0.0.1:8080/home  
  
 
 注：（1）建议安装lombok插件。如果没有lombok插件，删除lombok自带的注解，手动生成get，set方法  
 	（2）若启用redis服务，步骤2配置过则无需配置。若想自定义ip端口号，进入
 computer.service.impl.ComputerIndexServiceImpl进行配置  
 	（3）就算不启动redis服务，该项目也可以正常运行  
-	（4）需要连接互联网，hdfs和jsch通信使用
+	（4）需要连接互联网，hdfs和jsch通信使用  
+	（5）登录用户名密码admin 123
 
 ##### 运行结果  
 ![计算机指标](https://raw.githubusercontent.com/bigli97/computer/master/src/main/resources/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8C%87%E6%A0%87.gif)
