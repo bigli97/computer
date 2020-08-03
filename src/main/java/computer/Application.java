@@ -8,8 +8,8 @@ import computer.util.PortUtil;
 @SpringBootApplication
 public class Application {
 	public static void main(String[] args) {
-		//fasle表示不自检
-		PortUtil.checkPort("192.168.11.130",6379,true);
+		//true表示开启自检服务
+		PortUtil.checkPort("192.168.11.130",6379,50070,true);
         SpringApplication.run(Application.class, args);
     }
 }
