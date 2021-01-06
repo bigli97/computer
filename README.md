@@ -1,12 +1,12 @@
-##### 项目简介
+# 项目简介
 
 计算Linux虚拟机指标包括内存使用率，cpu使用率，实时网速。获取hdfs的健康信息，包括配置容量，现有容量，DFS余量，非DFS使用量。并进行可视化展示
 
-##### 技术需要
+# 技术需要
 
 【必用】spring boot + Echarts + thymeleaf + jdk8以上【选用】Redis+Vue+Bootstrap
 
-##### 启动步骤
+# 启动步骤
 
 1、启动虚拟机，关闭防火墙  
 2、在虚拟机当前目录（/root）写入Nspeed.sh（实时网速获取脚本文件），该文件位于resource目录下  
@@ -24,5 +24,5 @@ computer.service.impl.ComputerIndexServiceImpl进行配置
 	（4）需要连接互联网，hdfs和jsch通信使用  
 	（5）登录用户名密码admin 123
 
-##### 运行结果  
+# 运行结果  
 ![Linux指标](https://gitee.com/leidl97/picture/raw/master/img/20210106103738.gif)
