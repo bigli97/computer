@@ -25,4 +25,4 @@ computer.service.impl.ComputerIndexServiceImpl进行配置
 	（5）登录用户名密码admin 123
 
 ##### 运行结果  
-![Linux指标](https://raw.githubusercontent.com/bigli97/computer/master/src/main/resources/image/Linux%E6%8C%87%E6%A0%87.gif)
+![Linux指标](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2a8d1f67e19d4046a67a5a25022cc448~tplv-k3u1fbpfcp-zoom-1.image)
