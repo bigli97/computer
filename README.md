@@ -25,4 +25,4 @@ computer.service.impl.ComputerIndexServiceImpl进行配置
 	（5）登录用户名密码admin 123
 
 # 运行结果  
-![效果图](https://gitee.com/leidl97/picture/raw/master/img/20210106103738.gif)
+![效果图](https://gitee.com/leidl97/picture/raw/master/img/20210106104826.gif)
